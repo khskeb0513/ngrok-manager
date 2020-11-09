@@ -1,0 +1,73 @@
+FORMAT: 1A
+HOST: http://127.0.0.1:3000
+
+# ngrok-manager
+
+ngrok-manager manages ngrok's connecting, disconnecting, and its process.
+
+## Make connection [/{?proto}{?addr}]
+
++ Parameters
+    + proto (enum[string], required)
+        Protocol of connection that you want to create.
+        + Members
+            + tcp
+            + http
+    + addr (enum[string], required)
+        Address of connections that you want to create.
+        + Members
+            + host:port
+            + port
+
+### GET
+
++ Response 200 (application/json)
+
+        {
+            "status": "connected",
+            "url": "..."
+        }
+
+## List connection [/list]
+
+### GET
+
++ Response 302 (application/json)
+
++ Response 500 (application/json)
+
+        {
+            "message": "ngrok process cannot found",
+            "status": "500"
+        }
+        
+## Disconnect connection [/disconnect{?url}]
+
+### GET
+
++ Parameters
+    + url (string, required)
+        a url of connection
+        
++ Response 200 (application/json)
+
+        {
+            "status":"disconnected"
+        }
+
++ Response 500 (application/json)
+
+        {
+            "message": "there is no tunnel with url: https://1bc0d39fea28.jp.ngrok.io",
+            "status": "500"
+        }
+        
+## Kill process [/stop]
+
+### GET
+        
++ Response 200 (application/json)
+
+        {
+            "status":"killed"
+        }
