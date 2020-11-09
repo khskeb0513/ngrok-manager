@@ -12,10 +12,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 hbs.registerHelper('json', (value) => {
-    delete value['_locals']
-    delete value['cache']
-    delete value['settings']
-    return JSON.stringify(value)
+    if (typeof value === "object") {
+        delete value['_locals']
+        delete value['cache']
+        delete value['settings']
+        return JSON.stringify(value)
+    } else {
+        return `"${value}"`
+    }
 })
 
 app.use(logger('dev'));
@@ -31,7 +35,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 const indexRouter = require('./routes/index');
+const logRouter = require('./routes/log')
 app.use('/', indexRouter);
+app.use('/log', logRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

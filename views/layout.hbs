@@ -2,11 +2,8 @@
     {{{body}}}
 {{/if}}
 {{#unless error}}
-    <code>
-        {
-        "message": "{{{body}}}",
-        "status": "200",
-        "stack": ""
-        }
-    </code>
+    {
+    "message": {{{body}}},
+    "status": "200"
+    }
 {{/unless}}
