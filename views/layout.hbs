@@ -1,0 +1,12 @@
+{{#if error}}
+    {{{body}}}
+{{/if}}
+{{#unless error}}
+    <code>
+        {
+        "message": "{{{body}}}",
+        "status": "200",
+        "stack": ""
+        }
+    </code>
+{{/unless}}
